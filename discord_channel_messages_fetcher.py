@@ -3,7 +3,7 @@
 import requests
 import json
 
-token = ""
+token = "Obviously your authorization token here. Can be found from network tab in browser developer mode."
 headers = {
     "authorization": token
 }
@@ -12,7 +12,7 @@ def get_messages(channel_id, skipfrom=None):
     fetched = 0
     lastid = None
     while True:
-        if fetched == 0 and startfrom != None:
+        if fetched == 0 and skipfrom == None:
             url = f"https://discord.com/api/v9/channels/{channel_id}/messages?limit=50"
         else:
             url = f"https://discord.com/api/v9/channels/{channel_id}/messages?before={lastid}&limit=50"
@@ -26,4 +26,4 @@ def get_messages(channel_id, skipfrom=None):
             lastid = message["id"]
             print(message["content"])
 
-get_messages(channel id here, message id here)
+get_messages(6176821824811823280)
