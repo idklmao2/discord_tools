@@ -10,11 +10,15 @@ headers = {
 }
 
 def createSocket():
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    context = ssl.create_default_context()
-    s.connect(("discord.com", 443))
-    s = context.wrap_socket(s, server_hostname="discord.com")
-    return s
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        context = ssl.create_default_context()
+        s.connect(("discord.com", 443))
+        s = context.wrap_socket(s, server_hostname="discord.com")
+        return s
+    except Exception as e:
+        print(f"createSocket error: {e}")
+        pass
 
 s = createSocket()
 
