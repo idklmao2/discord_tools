@@ -50,14 +50,17 @@ def getprofile(user_id):
         avatar_url = f"https://cdn.discordapp.com/avatars/{user_id}/{avatar}?size={image_size}"
         date_creation = idtodate(user_id)
         avatar_reverse_image = ""
+        banner_reverse_image = ""
         avatar_text = ""
         banner = ""
         if not profile["avatar"] == None:
             avatar_text = f"\r\nAvatar URL: {avatar_url}"
             avatar_reverse_image = f"\r\nAvatar Reverse Image: https://www.google.com/searchbyimage?image_url={avatar_url}"
         if not profile["banner"] == None:
-            banner = f"\r\nBanner: https://cdn.discordapp.com/banners/{user_id}/{profile['banner']}?size={image_size}"
-        print(f"Tag: {user_tag}\r\nDate Creation: {date_creation}{avatar_text}{avatar_reverse_image}{banner}\r\n\r\n")
+            banner_url = f"https://cdn.discordapp.com/banners/{user_id}/{profile['banner']}?size={image_size}"
+            banner = f"\r\nBanner: {banner_url}"
+            banner_reverse_image = f"\r\nBanner Reverse Image: https://www.google.com/searchbyimage?image_url={banner_url}"
+        print(f"Tag: {user_tag}\r\nDate Creation: {date_creation}{avatar_text}{avatar_reverse_image}{banner}{banner_reverse_image}\r\n\r\n")
     except Exception as e:
         print(f"getprofile error: {e}")
         pass
