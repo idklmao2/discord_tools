@@ -1,5 +1,6 @@
 import requests
 import json
+import time
 import sys
 
 token = ""
@@ -8,12 +9,38 @@ headers = {
     "Authorization": token
 }
 
+def snowflaketoepoch(snowflake):
+    try:
+        snowflake = int(snowflake)
+        convertion1 = snowflake / 4194304 + 1420070400000
+        convertion2 = convertion1 / 1000
+        return convertion2
+    except Exception as e:
+        print(f"snowflaketoepoch error: {e}")
+        pass
+
+def epochtodate(epoch):
+    try:
+        return time.strftime("%B %d, %Y %H:%M:%S", time.gmtime(epoch))
+    except Exception as e:
+        print(f"epochtodate error: {e}")
+        pass
+
+def idtodate(user_id):
+    try:
+        epoch = snowflaketoepoch(user_id)
+        datetime = epochtodate(epoch)
+        return datetime
+    except Exception as e:
+        print(f"idtodate error: {e}")
+        pass
+
 def getprofile(user_id):
     try:
         r = requests.get(f"https://discord.com/api/v9/users/{user_id}", headers=headers)
         profile = json.loads(r.text)
         if "message" in profile:
-            print("ERROR: {profile['message']}")
+            print(f"ERROR: {profile['message']}")
             return
         user_id = profile["id"]
         username = profile["username"]
@@ -21,13 +48,14 @@ def getprofile(user_id):
         discriminator = profile["discriminator"]
         user_tag = f"{username}#{discriminator}"
         avatar_url = f"https://cdn.discordapp.com/avatars/{user_id}/{avatar}?size={image_size}"
+        date_creation = idtodate(user_id)
         avatar_text = ""
         banner = ""
         if not profile["avatar"] == None:
             avatar_text = f"\r\nAvatar URL: {avatar_url}"
         if not profile["banner"] == None:
             banner = f"\r\nBanner: https://cdn.discordapp.com/banners/{user_id}/{profile['banner']}?size={image_size}"
-        print(f"Tag: {user_tag}{avatar_text}{banner}\r\n\r\n")
+        print(f"Tag: {user_tag}\r\nDate Creation: {date_creation}{avatar_text}{banner}\r\n\r\n")
     except Exception as e:
         print(f"getprofile error: {e}")
         pass
