@@ -40,8 +40,8 @@ def getprofile(user_id):
         r = requests.get(f"https://discord.com/api/v9/users/{user_id}", headers=headers)
         profile = json.loads(r.text)
         if "message" in profile:
-            print(f"ERROR: {profile['message']}\r\n")
-            print(f"Date Creation: {idtodate(user_id)}")
+            print(f"ERROR: {profile['message']}")
+            print(f"Date Creation: {idtodate(user_id)}\r\n")
             return
         user_id = profile["id"]
         username = profile["username"]
