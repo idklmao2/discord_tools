@@ -41,6 +41,7 @@ def getprofile(user_id):
         profile = json.loads(r.text)
         if "message" in profile:
             print(f"ERROR: {profile['message']}\r\n")
+            print(f"Date Creation: {idtodate(user_id)}")
             return
         user_id = profile["id"]
         username = profile["username"]
