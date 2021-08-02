@@ -20,10 +20,13 @@ def getprofile(user_id):
         discriminator = profile["discriminator"]
         user_tag = f"{username}#{discriminator}"
         avatar_url = f"https://cdn.discordapp.com/avatars/{user_id}/{avatar}"
+        avatar_text = ""
         banner = ""
+        if not profile["avatar"] == None:
+            avatar_text = f"\r\nAvatar URL: {avatar_url}"
         if not profile["banner"] == None:
             banner = f"\r\nBanner: https://cdn.discordapp.com/banners/{user_id}/{profile['banner']}"
-        print(f"Tag: {user_tag}\r\nAvatar URL: {avatar_url}{banner}\r\n\r\n")
+        print(f"Tag: {user_tag}{avatar_text}{banner}\r\n\r\n")
     except Exception as e:
         print(f"getprofile error: {e}")
         pass
