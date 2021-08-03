@@ -1,5 +1,3 @@
-#Version = 1.0.0
-#Expect me to create another version of this piece of code.
 import requests
 import json
 
