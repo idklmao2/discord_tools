@@ -2,7 +2,7 @@ import requests
 import time
 
 url = "https://discord.com/api/v9/users/@me/settings"
-token = "YOUR TOKEN HERE"
+token = ""
 texts = []
 lyrics = """
 Why you mad, why you mad? Why you mad, why you mad?
