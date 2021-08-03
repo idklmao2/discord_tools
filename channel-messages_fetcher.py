@@ -3,7 +3,7 @@
 import requests
 import json
 
-token = "Obviously your authorization token here. Can be found from network tab in browser developer mode."
+token = ""
 headers = {
     "authorization": token
 }
@@ -26,4 +26,4 @@ def get_messages(channel_id, skipfrom=None):
             lastid = message["id"]
             print(message["content"])
 
-get_messages(6176821824811823280)
+get_messages(input("Channel ID: "))
