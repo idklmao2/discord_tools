@@ -8,6 +8,7 @@ import sys
 
 token = ""
 image_size = 1024
+# 64 128 256 512 1024 2048
 headers = {
     "Authorization": token
 }
