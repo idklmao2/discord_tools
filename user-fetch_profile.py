@@ -1,3 +1,6 @@
+# It supports avatar reverse image searching (Google) and even user banner if available.
+# Snowflake convertion to datetime: (<snowflake> ÷ 4194304 + 1420070400000) ÷ 1000
+
 import requests
 import json
 import time
