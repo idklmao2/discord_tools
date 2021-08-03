@@ -1,6 +1,7 @@
 import discord
 client = discord.Client()
 
+token = ""
 emoji_list = ["🇫", "🇺", "🇨", "🇰"]
 
 @client.event
@@ -11,4 +12,4 @@ async def on_ready():
         for emoji in emoji_list:
             await channel.get_partial_message(message_id).add_reaction(emoji)
 
-client.run("authentication token here", bot=False)
+client.run(token, bot=False)
