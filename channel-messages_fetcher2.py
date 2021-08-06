@@ -26,4 +26,4 @@ def get_messages(channel_id, skipfrom=None):
                 continue
             print(f"{message['author']['username']}: {message['content']}")
 
-get_messages(612682182481216680)
+get_messages(input("Channel ID: "))
