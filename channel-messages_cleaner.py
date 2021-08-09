@@ -10,7 +10,7 @@ headers = {
 }
 myid = None
 
-
+deleted = 0
 active_threads = 0
 max_threads = 10
 
@@ -29,11 +29,14 @@ def getid():
 def delete(channel_id, message_id):
     try:
         global active_threads
+        global deleted
         active_threads += 1
         while True:
             r = requests.delete(f"https://discord.com/api/v9/channels/{channel_id}/messages/{message_id}", headers=headers)
             if not "You are being rate limited." in r.text:
                 break
+        deleted += 1
+        print(f"Deleted {deleted} messages")
     except Exception as e:
         print(f"delete error: {e}")
         pass
