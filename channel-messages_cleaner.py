@@ -45,19 +45,18 @@ def delete(channel_id, message_id):
 
 def clean(channel_id):
     try:
-        #offset = 0
         while True:
             try:
                 r = requests.get(f"https://discord.com/api/v9/channels/{channel_id}/messages/search?author_id={myid}&channel_id={channel_id}&include_nsfw=true", headers=headers)
-                rj = json.loads(r.text)["messages"]
-                if "message" in rj:
-                    print(f"ERROR: {rj['message']}")
-                    sys.exit()
-                #offset += 25
-                for message in rj:
+                if r.status_code != 200:
+                    print(f"Error. Try again!")
+                rj = json.loads(r.text)
+                print(rj)
+                print(f"Length: {len(rj['messages'])}")
+                for message in rj["messages"]:
                     message_id = message[0]["id"]
                     message_type = message[0]["type"]
-                    if message_type == 0:
+                    if message_type != 3:
                         while True:
                             if active_threads >= max_threads:
                                 continue
@@ -67,7 +66,7 @@ def clean(channel_id):
                 while True:
                     if active_threads == 0:
                         break
-                if len(rj) < 25:
+                if len(rj["messages"]) < 25:
                     break
             except KeyboardInterrupt:
                 break
