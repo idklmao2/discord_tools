@@ -51,7 +51,6 @@ def clean(channel_id):
                 if r.status_code != 200:
                     print(f"Error. Try again!")
                 rj = json.loads(r.text)
-                print(rj)
                 print(f"Total Length: {rj['total_results']}")
                 print(f"Fetched Length: {len(rj['messages'])}")
                 for _ in range(len(rj['messages'])):
