@@ -41,15 +41,15 @@ def delete(channel_id, message_id):
 
 def clean(channel_id):
     try:
-        offset = 0
+        #offset = 0
         while True:
             try:
-                r = requests.get(f"https://discord.com/api/v9/channels/{channel_id}/messages/search?author_id={myid}&offset={offset}", headers=headers)
+                r = requests.get(f"https://discord.com/api/v9/channels/{channel_id}/messages/search?author_id={myid}", headers=headers)
                 rj = json.loads(r.text)["messages"]
                 if "message" in rj:
                     print(f"ERROR: {rj['message']}")
                     sys.exit()
-                offset += 25
+                #offset += 25
                 for message in rj:
                     message_id = message[0]["id"]
                     message_type = message[0]["type"]
@@ -72,7 +72,7 @@ def clean(channel_id):
                 if active_threads == 0:
                     break
             except KeyboardInterrupt:
-                sys.exit()
+                break
     except Exception as e:
         print(f"clean error: {e}")
         pass
