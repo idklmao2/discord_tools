@@ -51,7 +51,6 @@ def clean(channel_id):
                 if r.status_code != 200:
                     print(f"Error. Try again!")
                 rj = json.loads(r.text)
-                print(rj)
                 print(f"Length: {len(rj['messages'])}")
                 for message in rj["messages"]:
                     message_id = message[0]["id"]
