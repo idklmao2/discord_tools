@@ -43,30 +43,36 @@ def clean(channel_id):
     try:
         offset = 0
         while True:
-            r = requests.get(f"https://discord.com/api/v9/channels/{channel_id}/messages/search?author_id={myid}&offset={offset}", headers=headers)
-            rj = json.loads(r.text)["messages"]
-            if "message" in rj:
-                print(f"ERROR: {rj['message']}")
-                sys.exit()
-            offset += 25
-            for message in rj:
-                message_id = message[0]["id"]
-                message_type = message[0]["type"]
-                if message_type == 0:
-                    while True:
-                        if active_threads >= max_threads:
-                            continue
-                        threading.Thread(target=delete, args=[channel_id, message_id], daemon=True).start()
-                        time.sleep(.1)
+            try:
+                r = requests.get(f"https://discord.com/api/v9/channels/{channel_id}/messages/search?author_id={myid}&offset={offset}", headers=headers)
+                rj = json.loads(r.text)["messages"]
+                if "message" in rj:
+                    print(f"ERROR: {rj['message']}")
+                    sys.exit()
+                offset += 25
+                for message in rj:
+                    message_id = message[0]["id"]
+                    message_type = message[0]["type"]
+                    if message_type == 0:
+                        while True:
+                            if active_threads >= max_threads:
+                                continue
+                            threading.Thread(target=delete, args=[channel_id, message_id], daemon=True).start()
+                            time.sleep(.1)
+                            break
+                while True:
+                    if active_threads == 0:
                         break
-            while True:
-                if active_threads == 0:
+                if len(rj) < 25:
                     break
-            if len(rj) < 25:
+            except KeyboardInterrupt:
                 break
         while True:
-            if active_threads == 0:
-                break
+            try:
+                if active_threads == 0:
+                    break
+            except KeyboardInterrupt:
+                sys.exit()
     except Exception as e:
         print(f"clean error: {e}")
         pass
