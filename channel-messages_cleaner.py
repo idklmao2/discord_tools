@@ -30,9 +30,10 @@ def delete(channel_id, message_id):
     try:
         global active_threads
         active_threads += 1
-        r = requests.delete(f"https://discord.com/api/v9/channels/{channel_id}/messages/{message_id}", headers=headers)
-        if "You are being rate limited." in r.text:
-            delete(channel_id, message_id)
+        while True:
+            r = requests.delete(f"https://discord.com/api/v9/channels/{channel_id}/messages/{message_id}", headers=headers)
+            if not "You are being rate limited." in r.text:
+                break
     except Exception as e:
         print(f"delete error: {e}")
         pass
