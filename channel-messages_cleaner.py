@@ -51,7 +51,8 @@ def clean(channel_id):
                 if r.status_code != 200:
                     print(f"Error. Try again!")
                 rj = json.loads(r.text)
-                print(f"Length: {len(rj['messages'])}")
+                print(f"Total Length: {rj['total_results']}")
+                print(f"Fetched Length: {len(rj['messages'])}")
                 for message in rj["messages"]:
                     message_id = message[0]["id"]
                     message_type = message[0]["type"]
@@ -65,7 +66,7 @@ def clean(channel_id):
                 while True:
                     if active_threads == 0:
                         break
-                if len(rj["messages"]) < 25:
+                if len(rj["messages"]) < 1:
                     break
             except KeyboardInterrupt:
                 break
