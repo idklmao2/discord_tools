@@ -2,6 +2,7 @@ import threading
 import requests
 import random
 import time
+import sys
 
 try:
     token_file = open("token.txt", "r")
@@ -37,12 +38,22 @@ def genchars(length):
                 number = random.randrange(13000)
                 text += chr(number)
         return text
-    except Exception:
+    except Exception as e:
         print(f"genchars error: {e}")
         pass
 
-channel_id = input("Channel ID: ")
 while True:
-    for _ in range(10):
-        threading.Thread(target=message, args=[channel_id, genchars(2000)[:2000]]).start()
-    time.sleep(15)
+    try:
+        channel_id = input("Channel ID: ")
+        while True:
+            try:
+                for _ in range(10):
+                    threading.Thread(target=message, args=[channel_id, genchars(2000)[:2000]]).start()
+                time.sleep(15)
+            except KeyboardInterrupt:
+                break
+    except KeyboardInterrupt:
+        sys.exit()
+    except Exception as e:
+        print(f"main error: {e}")
+        pass
