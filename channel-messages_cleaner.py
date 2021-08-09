@@ -53,6 +53,10 @@ def clean(channel_id):
                 rj = json.loads(r.text)
                 print(f"Total Length: {rj['total_results']}")
                 print(f"Fetched Length: {len(rj['messages'])}")
+                for i, message in enumerate(rj["messages"]):
+                    message_type = message[0]["type"]
+                    if message_type == 3:
+                        rj["messages"].pop(i)
                 for message in rj["messages"]:
                     message_id = message[0]["id"]
                     message_type = message[0]["type"]
