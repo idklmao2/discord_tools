@@ -85,5 +85,6 @@ myid = getid()
 while True:
     try:
         clean(input("Channel ID: "))
+        deleted = 0
     except KeyboardInterrupt:
         sys.exit()
