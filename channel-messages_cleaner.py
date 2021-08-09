@@ -33,7 +33,7 @@ def delete(channel_id, message_id):
         active_threads += 1
         while True:
             r = requests.delete(f"https://discord.com/api/v9/channels/{channel_id}/messages/{message_id}", headers=headers)
-            if not "You are being rate limited." in r.text:
+            if r.status_code == 204:
                 break
         deleted += 1
         print(f"Deleted {deleted} messages")
@@ -62,7 +62,7 @@ def clean(channel_id):
                             if active_threads >= max_threads:
                                 continue
                             threading.Thread(target=delete, args=[channel_id, message_id], daemon=True).start()
-                            time.sleep(.1)
+                            time.sleep(.5)
                             break
                 while True:
                     if active_threads == 0:
