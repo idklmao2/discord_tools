@@ -1,4 +1,3 @@
-# Jesus fucking christ
 import threading
 import requests
 import json
@@ -49,7 +48,7 @@ def clean(channel_id):
         #offset = 0
         while True:
             try:
-                r = requests.get(f"https://discord.com/api/v9/channels/{channel_id}/messages/search?author_id={myid}", headers=headers)
+                r = requests.get(f"https://discord.com/api/v9/channels/{channel_id}/messages/search?author_id={myid}&channel_id={channel_id}&include_nsfw=true", headers=headers)
                 rj = json.loads(r.text)["messages"]
                 if "message" in rj:
                     print(f"ERROR: {rj['message']}")
