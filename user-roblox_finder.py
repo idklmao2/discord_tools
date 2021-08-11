@@ -15,7 +15,7 @@ def getroblox(user_id):
         if rj1["status"] == "error":
             print(f"RoVer: {rj1['error']}")
         elif rj1["status"] == "ok":
-            print(f"RoVer: {rj1['robloxUsername']}")
+            print(f"RoVer: {rj1['robloxId']} | {rj1['robloxUsername']}")
         if rj2["status"] == "error":
             print(f"Bloxlink: {rj2['error']}")
         elif rj2["status"] == "ok":
